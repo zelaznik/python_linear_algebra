@@ -84,5 +84,29 @@ class ProjectionOntoTest(unittest.TestCase):
         b = Vector([20, 10])
         self.assertEqual(list(a.projection_onto(b)), [1.6, 0.8])
 
+class AdditionTest(unittest.TestCase):
+    def test_raises_error_when_vectors_have_unequal_length(self):
+        first = Vector([1, 2, 3])
+        second = Vector([1, 2, 3, 4])
+        with self.assertRaises(ValueError):
+            first + second
+
+    def test_adds_each_of_the_elements_togeter(self):
+        a = Vector([1, 2, 3, 4])
+        b = Vector([30, 33, 36, 39])
+        self.assertEqual(list(a + b), [31, 35, 39, 43])
+
+class SubtracitonTest(unittest.TestCase):
+    def test_raises_error_when_vectors_have_unequal_length(self):
+        first = Vector([1, 2, 3])
+        second = Vector([1, 2, 3, 4])
+        with self.assertRaises(ValueError):
+            first.dot(second)
+
+    def test_adds_each_of_the_elements_togeter(self):
+        a = Vector([1, 2, 3, 4])
+        b = Vector([31, 35, 39, 43])
+        self.assertEqual(list(b - a), [30, 33, 36, 39])
+
 if __name__ == '__main__':
     unittest.main()

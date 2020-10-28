@@ -55,22 +55,37 @@ class Vector(object):
     def __abs__(self):
         return self.dot(self) ** 0.5
 
-    @assert_other_is(Number)
     def __mul__(self, number):
+        if not isinstance(number, Number):
+            return NotImplemented
         return self.__class__(value*number for value in self)
 
     __rmul__ = __mul__
 
-    @assert_other_is(Number)
     def __truediv__(self, number):
+        if not isinstance(number, Number):
+            return NotImplemented
         return self.__class__(value/number for value in self)
+
+    def __matmul__(self, vector):
+        if not isinstance(vector, Vector):
+            return NotImplemented
+        return self.dot(vector)
 
     def __repr__(self):
         return '%s([%s])' % (self.__class__.__name__, ', '.join(repr(r) for r in self))
 
     @assertcompatible
     def dot(self, vector):
-        return sum(value*vector[i] for i, value in enumerate(self))
+        return sum(value * vector[i] for i, value in enumerate(self))
+
+    @assertcompatible
+    def __add__(self, vector):
+        return self.__class__(value + vector[i] for i,value in enumerate(self))
+
+    @assertcompatible
+    def __sub__(self, vector):
+        return self.__class__(value - vector[i] for i,value in enumerate(self))
 
     def normalized(self):
         abs_v = abs(self)
@@ -80,10 +95,8 @@ class Vector(object):
     def projection_onto(self, vector):
         return (self.dot(vector) / vector.dot(vector)) * vector
 
+    @assertcompatible
+    def orthogonal_projection_onto(self, vector):
+        self - self.projection_onto(vector)
 
-class VectorText(unittest.TestCase):
-    def test_dot_product(self):
-        a = Vector([1, 2])
-        b = Vector([3, 4])
-        self.assertEqual(a.dot(b), 11)
-
+__all__ = ['Vector']
