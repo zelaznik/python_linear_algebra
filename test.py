@@ -101,7 +101,7 @@ class SubtracitonTest(unittest.TestCase):
         first = Vector([1, 2, 3])
         second = Vector([1, 2, 3, 4])
         with self.assertRaises(ValueError):
-            first.dot(second)
+            first - second
 
     def test_adds_each_of_the_elements_togeter(self):
         a = Vector([1, 2, 3, 4])
