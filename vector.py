@@ -12,7 +12,7 @@ def assertcompatible(func):
             return func(self, other)
     return wrappped
 
-def assert_other_is(klass, is_operator=True):
+def assert_other_is_vector(is_operator=True):
     if is_operator:
         def decorator(func):
             @wraps(func)

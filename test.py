@@ -91,6 +91,11 @@ class AdditionTest(unittest.TestCase):
         with self.assertRaises(ValueError):
             first + second
 
+    def test_raises_error_when_adding_constant_to_vector(self):
+        v = Vector([1, 2, 3])
+        with self.assertRaises(TypeError):
+            v + 3
+
     def test_adds_each_of_the_elements_togeter(self):
         a = Vector([1, 2, 3, 4])
         b = Vector([30, 33, 36, 39])
